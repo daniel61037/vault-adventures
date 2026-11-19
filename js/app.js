@@ -10,6 +10,18 @@
 
 const STORAGE_KEY = 'VAULT84_ADVENT_SAVE_V1';
 
+/**
+ * Ensures mobile browsers (iOS Safari & Android Chrome) have an exact pixel-based
+ * viewport height fallback (--app-height) in addition to CSS 100dvh.
+ */
+function updateMobileViewportHeight() {
+    const vh = window.innerHeight;
+    document.documentElement.style.setProperty('--app-height', `${vh}px`);
+}
+window.addEventListener('resize', updateMobileViewportHeight);
+window.addEventListener('orientationchange', updateMobileViewportHeight);
+updateMobileViewportHeight();
+
 const AppState = {
     character: JSON.parse(JSON.stringify(window.DEFAULT_CHARACTER)),
     completedDays: {},
@@ -1073,6 +1085,16 @@ function executePhaseChoice(dayObj, phaseIdx, choiceId, spendAp = 0, isLuckRerol
     renderVaultDiagnostics();
     generateCampaignReport();
 
+    // On mobile devices, gently reveal the outcome or newly activated phase
+    setTimeout(() => {
+        const targetEl = isFinalPhase
+            ? (document.querySelector('.mission-finish-bar') || document.querySelector('.special-gift-box'))
+            : (document.querySelectorAll('.phase-box')?.[phaseIdx + 1] || document.querySelectorAll('.phase-resolution')?.[phaseIdx]);
+        if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    }, 60);
+
     if (isFinalPhase && dayObj.specialGift) {
         setFooterStatus(`TAG ${dayObj.day} ABGESCHLOSSEN & SONDER-GESCHENK FREIGESCHALTET: ${dayObj.specialGift.title}!`);
     } else if (isFinalPhase) {
@@ -1475,12 +1497,16 @@ ${logLines}
    ========================================================================== */
 
 function switchTab(tabId) {
+    updateMobileViewportHeight();
     document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
     });
     document.querySelectorAll('.tab-panel').forEach(panel => {
         panel.classList.toggle('active', panel.id === `tab-${tabId}`);
     });
+
+    const mainScroll = document.querySelector('.terminal-main');
+    if (mainScroll) mainScroll.scrollTop = 0;
 
     if (tabId === 'mission') renderActiveMission();
     if (tabId === 'char') renderCharacterSheet();
@@ -1505,6 +1531,7 @@ function applyThemeAndEffects() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    updateMobileViewportHeight();
     loadState();
     applyThemeAndEffects();
     updateTelemetryBar();
