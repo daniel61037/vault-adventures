@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROBCO INDUSTRIES UNIFIED OPERATING SYSTEM - VAULT 84</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/terminal.css">
+</head>
+<body class="theme-green">
+    <!-- Outer Bezel / Monitor Frame -->
+    <div class="monitor-bezel">
+        <div class="monitor-frame">
+            <!-- CRT Screen Container -->
+            <div id="crt-screen" class="crt-screen">
+                <div class="crt-scanlines"></div>
+                <div class="crt-vignette"></div>
+                <div class="crt-flicker"></div>
+
+                <!-- Main Terminal Interface -->
+                <div class="terminal-wrapper">
+                    
+                    <!-- Top RobCo Header -->
+                    <header class="terminal-header">
+                        <div class="header-top">
+                            <span>ROBCO INDUSTRIES UNIFIED OPERATING SYSTEM</span>
+                            <span id="header-clock">2287.12.01 // 06:15:00</span>
+                        </div>
+                        <div class="header-sub">
+                            <span>COPYRIGHT 2075-2077 ROBCO INDUSTRIES</span>
+                            <span>- SERVER 04: VAULT-TEC FACILITY #84 (SUB-ALPINE SECTOR) -</span>
+                        </div>
+                        
+                        <!-- Main Navigation Tabs -->
+                        <nav class="terminal-nav">
+                            <button class="nav-btn active" data-tab="calendar">[01] DEZEMBER-PROTOKOLL</button>
+                            <button class="nav-btn" data-tab="mission">[02] TAGES-EINSATZ</button>
+                            <button class="nav-btn" data-tab="char">[03] PERSONALAKTE (2D20)</button>
+                            <button class="nav-btn" data-tab="vault">[04] VAULT-DIAGNOSE</button>
+                            <button class="nav-btn" data-tab="dice">[05] WÜRFEL-MODUL</button>
+                            <button class="nav-btn" data-tab="export">[06] KAMPAGNEN-EXPORT</button>
+                        </nav>
+
+                        <!-- Quick Status Telemetry Bar -->
+                        <div class="telemetry-bar">
+                            <div class="tele-item">
+                                <span class="tele-label">TECH:</span>
+                                <span class="tele-val" id="tele-name">M. LINDQVIST</span>
+                            </div>
+                            <div class="tele-item">
+                                <span class="tele-label">TP:</span>
+                                <span class="tele-val" id="tele-hp">11/11</span>
+                            </div>
+                            <div class="tele-item">
+                                <span class="tele-label">RAD:</span>
+                                <span class="tele-val" id="tele-rad">0</span>
+                            </div>
+                            <div class="tele-item">
+                                <span class="tele-label">AP (POOL):</span>
+                                <span class="tele-val" id="tele-ap">2 / 6</span>
+                            </div>
+                            <div class="tele-item">
+                                <span class="tele-label">GLÜCK:</span>
+                                <span class="tele-val" id="tele-luck">6 / 6</span>
+                            </div>
+                            <div class="tele-item">
+                                <span class="tele-label">VAULT-INTEGRITÄT:</span>
+                                <span class="tele-val" id="tele-vault">12%</span>
+                            </div>
+                        </div>
+                    </header>
+
+                    <!-- Main Content Area -->
+                    <main class="terminal-main">
+                        
+                        <!-- TAB 1: ADVENT CALENDAR (24 DOORS) -->
+                        <section id="tab-calendar" class="tab-panel active">
+                            <div class="section-banner">
+                                <h2>&gt; NOTFALL-WIEDERHERSTELLUNGS-PROTOKOLL "WINTERSCHLAF" (24-TAGE-ZYKLUS)</h2>
+                                <p>WARNUNG: Totalausfall der Primärsysteme nach cryo-seismischem Schock. Als <span id="calendar-wake-role">einzige wache Technikerin</span> von Schicht Gamma-3 müssen Sie vom <strong>01. Dezember bis 24. Dezember</strong> Tag für Tag die Lebenserhaltung stabilisieren, bevor die Kryo-Kapseln der übrigen 118 Bewohner versagen.</p>
+                            </div>
+
+                            <div class="char-profile-bar" aria-label="Charakter anpassen">
+                                <div class="char-profile-field char-profile-name-field">
+                                    <label for="quick-char-name">SPIELCHARAKTER:</label>
+                                    <input type="text" id="quick-char-name" class="terminal-input" placeholder='Maren "Sparks" Lindqvist' maxlength="48">
+                                </div>
+                                <div class="char-profile-field">
+                                    <span class="char-profile-label">GESCHLECHT:</span>
+                                    <div class="gender-btn-group" id="quick-gender-group">
+                                        <button type="button" class="gender-btn" data-gender="f">[W] WEIBLICH</button>
+                                        <button type="button" class="gender-btn" data-gender="m">[M] MÄNNLICH</button>
+                                        <button type="button" class="gender-btn" data-gender="d">[D] DIVERS</button>
+                                    </div>
+                                </div>
+                                <div class="char-profile-actions">
+                                    <button type="button" id="btn-quick-char-save" class="terminal-btn">[ÜBERNEHMEN]</button>
+                                    <button type="button" id="btn-quick-char-reset" class="terminal-btn" title="Auf Standard-Charakter (Maren &quot;Sparks&quot; Lindqvist, Weiblich) zurücksetzen">[STANDARD]</button>
+                                </div>
+                            </div>
+
+                            <div class="calendar-controls">
+                                <span id="calendar-progress-text">FORTSCHRITT: 0 / 24 SEKTOREN STABILISIERT</span>
+                                <span id="calendar-date-status" style="font-size: 0.9rem; color: var(--phosphor-text);">CHRONO-SYNCHRONISATION: AKTIV</span>
+                            </div>
+
+                            <div id="calendar-grid" class="calendar-grid">
+                                <!-- Generated by JS: 24 Doors -->
+                            </div>
+                        </section>
+
+                        <!-- TAB 2: ACTIVE DAY MISSION -->
+                        <section id="tab-mission" class="tab-panel">
+                            <div id="mission-container" class="mission-container">
+                                <!-- Populated dynamically when a day is selected -->
+                            </div>
+                        </section>
+
+                        <!-- TAB 3: CHARACTER SHEET (FALLOUT 2D20) -->
+                        <section id="tab-char" class="tab-panel">
+                            <div class="char-grid">
+                                <!-- Left Column: Bio & S.P.E.C.I.A.L. -->
+                                <div class="char-col">
+                                    <div class="terminal-box">
+                                        <h3>&gt; PERSONALAKTE // VAULT-TEC INGENIEURKORPS</h3>
+                                        <div class="bio-grid">
+                                            <div><strong>NAME:</strong> <span id="char-name">Maren "Sparks" Lindqvist</span></div>
+                                            <div><strong>HERKUNFT:</strong> <span id="char-origin">Vault-Bewohnerin (Vault 84 - Sub-Alpiner Sektor)</span></div>
+                                            <div><strong>RANG:</strong> <span id="char-role">Senior-Wartungstechnikerin (Schicht Gamma-3)</span></div>
+                                            <div><strong>LEVEL:</strong> <span id="char-level">1 (Solo-Prolog)</span> | <strong>XP:</strong> <span id="char-xp">0</span></div>
+                                        </div>
+                                        <div class="char-customize-panel">
+                                            <div class="char-customize-row">
+                                                <label for="char-name-input">NAME ANPASSEN (z. B. Vorname &quot;Spitzname&quot; Nachname):</label>
+                                                <div class="char-name-edit-row">
+                                                    <input type="text" id="char-name-input" class="terminal-input" placeholder='Maren "Sparks" Lindqvist' maxlength="48">
+                                                    <button type="button" id="btn-char-name-save" class="terminal-btn">[ÜBERNEHMEN]</button>
+                                                    <button type="button" id="btn-char-identity-reset" class="terminal-btn">[STANDARD]</button>
+                                                </div>
+                                            </div>
+                                            <div class="char-customize-row">
+                                                <span class="char-customize-label">GESCHLECHT / ANREDE:</span>
+                                                <div class="gender-btn-group" id="char-gender-group">
+                                                    <button type="button" class="gender-btn" data-gender="f">[WEIBLICH (SIE/IHR)]</button>
+                                                    <button type="button" class="gender-btn" data-gender="m">[MÄNNLICH (ER/IHM)]</button>
+                                                    <button type="button" class="gender-btn" data-gender="d">[DIVERS / NEUTRAL]</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="char-backstory">
+                                            Ausgebildet in Reaktorphysik, hydromechanischer Rohrsanierung und unkonventioneller RobCo-Programmierung. Als Ihr Notfall-Kryo-Pod durch einen Spannungsabfall am 1. Dezember vorzeitig öffnete, war der gesamte Vault dunkel, eiskalt und auf Notbatterie.
+                                        </p>
+                                    </div>
+
+                                    <div class="terminal-box">
+                                        <h3>&gt; S.P.E.C.I.A.L. ATTRIBUTE</h3>
+                                        <div id="special-list" class="special-list">
+                                            <!-- Populated by JS -->
+                                        </div>
+                                    </div>
+
+                                    <div class="terminal-box">
+                                        <h3>&gt; MERKMALE &amp; PERKS (EXTRAS)</h3>
+                                        <ul class="perk-list" id="perk-list">
+                                            <!-- Populated by JS -->
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Right Column: Combat, Resources, Skills & Inventory -->
+                                <div class="char-col">
+                                    <div class="terminal-box">
+                                        <h3>&gt; VITALWERTE &amp; 2D20 RESSOURCEN</h3>
+                                        <div class="resource-controls">
+                                            <div class="res-box">
+                                                <span class="res-title">TREFFERPUNKTE (TP)</span>
+                                                <div class="res-stepper">
+                                                    <button class="btn-step" data-res="hp" data-delta="-1">[-]</button>
+                                                    <span id="res-hp-val">11 / 11</span>
+                                                    <button class="btn-step" data-res="hp" data-delta="1">[+]</button>
+                                                </div>
+                                            </div>
+                                            <div class="res-box">
+                                                <span class="res-title">STRAHLUNG (RAD)</span>
+                                                <div class="res-stepper">
+                                                    <button class="btn-step" data-res="rad" data-delta="-1">[-]</button>
+                                                    <span id="res-rad-val">0</span>
+                                                    <button class="btn-step" data-res="rad" data-delta="1">[+]</button>
+                                                </div>
+                                            </div>
+                                            <div class="res-box">
+                                                <span class="res-title">AKTIONSPUNKTE (AP-POOL)</span>
+                                                <div class="res-stepper">
+                                                    <button class="btn-step" data-res="ap" data-delta="-1">[-]</button>
+                                                    <span id="res-ap-val">2 / 6</span>
+                                                    <button class="btn-step" data-res="ap" data-delta="1">[+]</button>
+                                                </div>
+                                            </div>
+                                            <div class="res-box">
+                                                <span class="res-title">GLÜCKSPUNKTE (LUCK)</span>
+                                                <div class="res-stepper">
+                                                    <button class="btn-step" data-res="luck" data-delta="-1">[-]</button>
+                                                    <span id="res-luck-val">6 / 6</span>
+                                                    <button class="btn-step" data-res="luck" data-delta="1">[+]</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="combat-stats-row">
+                                            <span><strong>VERTEIDIGUNG:</strong> 1</span>
+                                            <span><strong>INITIATIVE:</strong> 12</span>
+                                            <span><strong>NAH-SCHADEN:</strong> +0 CD</span>
+                                            <span><strong>PHYSISCHE RES.:</strong> 1 (Overall)</span>
+                                            <span><strong>ENERGIE RES.:</strong> 2 (Overall)</span>
+                                            <span><strong>STRAHLUNG RES.:</strong> 2 (Overall)</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="terminal-box">
+                                        <h3>&gt; FERTIGKEITEN (SKILLS) - [★ = TAG SKILL (KRIT AUF ≤ RANG)]</h3>
+                                        <div id="skills-list" class="skills-list">
+                                            <!-- Populated by JS -->
+                                        </div>
+                                    </div>
+
+                                    <div class="terminal-box">
+                                        <h3>&gt; AUSGERÜSTETES INVENTAR &amp; ERSATZTEILE</h3>
+                                        <div id="inventory-list" class="inventory-list">
+                                            <!-- Populated by JS -->
+                                        </div>
+                                        <div class="add-item-row">
+                                            <input type="text" id="new-item-input" placeholder="Neuen Gegenstand / Notiz eintragen...">
+                                            <button id="add-item-btn" class="terminal-btn">[+ EINTRAGEN]</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- TAB 4: VAULT 84 DIAGNOSTICS -->
+                        <section id="tab-vault" class="tab-panel">
+                            <div class="section-banner">
+                                <h2>&gt; VAULT 84 - ZENTRALE SYSTEMDIAGNOSE &amp; SEKTORSTATUS</h2>
+                                <p>Echtzeit-Telemetrie der 6 Hauptsysteme von Vault 84. Ziel des Notfall-Protokolls ist die Wiederherstellung auf mindestens <strong>STABIL (BASISBETRIEB)</strong> bis zum 24. Dezember, damit die restlichen Bewohner sicher geweckt werden können.</p>
+                            </div>
+
+                            <div id="vault-systems-grid" class="vault-systems-grid">
+                                <!-- Populated by JS -->
+                            </div>
+
+                            <div class="terminal-box vault-blueprint-box">
+                                <h3>&gt; TOPOLOGISCHES SCHICHTEN-SCHEMA: VAULT 84</h3>
+                                <pre class="ascii-blueprint" id="vault-ascii-map"></pre>
+                            </div>
+                        </section>
+
+                        <!-- TAB 5: FALLOUT 2D20 DICE ROLLER -->
+                        <section id="tab-dice" class="tab-panel">
+                            <div class="dice-layout">
+                                <div class="terminal-box dice-config-box">
+                                    <h3>&gt; FALLOUT 2D20 PRÜFUNGS-RECHNER</h3>
+                                    <p class="small-hint">Wähle Attribut + Fertigkeit. Jeder W20 ≤ Zielwert (ZW) erzielt 1 Erfolg. Würfe ≤ Fertigkeitsrang (oder ≤ Rang bei Tag-Skill ★) erzielen <strong>2 Erfolge (Kritisch)</strong>. Eine 20 ist immer eine <strong>Komplikation</strong>.</p>
+                                    
+                                    <div class="dice-selectors">
+                                        <div class="form-group">
+                                            <label for="roll-attr-select">1. S.P.E.C.I.A.L. ATTRIBUT:</label>
+                                            <select id="roll-attr-select" class="terminal-select"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="roll-skill-select">2. FERTIGKEIT (SKILL):</label>
+                                            <select id="roll-skill-select" class="terminal-select"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="roll-diff-select">3. SCHWIERIGKEIT (BENÖTIGTE ERFOLGE):</label>
+                                            <select id="roll-diff-select" class="terminal-select">
+                                                <option value="0">Stufe 0 (Einfach - 0 Erfolge)</option>
+                                                <option value="1" selected>Stufe 1 (Normal - 1 Erfolg)</option>
+                                                <option value="2">Stufe 2 (Fordernd - 2 Erfolge)</option>
+                                                <option value="3">Stufe 3 (Schwer - 3 Erfolge)</option>
+                                                <option value="4">Stufe 4 (Extrem - 4 Erfolge)</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="roll-bonus-d20">4. ZUSATZ-W20 (DURCH AP ODER PERKS, MAX +3):</label>
+                                            <div class="bonus-dice-row">
+                                                <button class="bonus-d20-btn active" data-d20="2">2W20 (Standard)</button>
+                                                <button class="bonus-d20-btn" data-d20="3">3W20 (1 AP)</button>
+                                                <button class="bonus-d20-btn" data-d20="4">4W20 (3 AP)</button>
+                                                <button class="bonus-d20-btn" data-d20="5">5W20 (6 AP)</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="target-summary" id="roll-target-summary">
+                                        ZIELWERT (ZW): 14 | KRIT-BEREICH: ≤ 3 (TAG-SKILL ★)
+                                    </div>
+
+                                    <div class="roll-action-buttons">
+                                        <button id="btn-execute-2d20" class="terminal-btn btn-large">[&gt; 2D20 PRÜFUNG AUSFÜHREN &lt;]</button>
+                                    </div>
+
+                                    <hr class="terminal-divider">
+
+                                    <h3>&gt; KAMPFWÜRFEL (COMBAT DICE / W6)</h3>
+                                    <p class="small-hint">Fallout-Kampfwürfel (CD): [1]=1 Schaden, [2]=2 Schaden, [3-4]=0, [5-6]=1 Schaden + 1 Effekt ★</p>
+                                    <div class="cd-controls">
+                                        <label for="cd-count-select">ANZAHL CD:</label>
+                                        <select id="cd-count-select" class="terminal-select-inline">
+                                            <option value="2">2 CD (Rohrzange)</option>
+                                            <option value="3">3 CD (10mm Pistole / Laser)</option>
+                                            <option value="4" selected>4 CD (Mod. Lichtbogen-Schweißer)</option>
+                                            <option value="5">5 CD (Schwerer Treffer)</option>
+                                            <option value="6">6 CD (Überladung)</option>
+                                        </select>
+                                        <button id="btn-roll-cd" class="terminal-btn">[KAMPFWÜRFEL WERFEN]</button>
+                                    </div>
+                                </div>
+
+                                <div class="terminal-box dice-results-box">
+                                    <h3>&gt; WÜRFEL-PROTOKOLL &amp; TELEMETRIE</h3>
+                                    <div id="dice-result-display" class="dice-result-display">
+                                        <p class="muted-text">Bereit für Eingabe. Wähle Parameter oder starte eine Prüfung direkt aus dem Tages-Einsatz.</p>
+                                    </div>
+                                    <h4>LETZTE WÜRFE:</h4>
+                                    <div id="dice-history-log" class="dice-history-log"></div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- TAB 6: CAMPAIGN EXPORT & GM HANDOFF -->
+                        <section id="tab-export" class="tab-panel">
+                            <div class="section-banner">
+                                <h2>&gt; KAMPAGNEN-ÜBERGABE &amp; TISCHROLLENSPIEL-DOSSIER</h2>
+                                <p>Dieses Modul fasst alle getroffenen Entscheidungen, reparierten Vault-Sektoren, offene Baustellen, verdiente Ausrüstung und Story-Hooks zusammen. Perfekt zum Ausdrucken oder Kopieren für die anschließende <strong>Fallout 2d20 Tisch-Runde</strong>!</p>
+                            </div>
+
+                            <div class="export-grid">
+                                <div class="terminal-box">
+                                    <h3>&gt; STATUS-BERICHT FÜR DIE GRUPPEN-KAMPAGNE</h3>
+                                    <textarea id="campaign-export-text" class="terminal-textarea" rows="18" readonly></textarea>
+                                    <div class="export-actions">
+                                        <button id="btn-generate-report" class="terminal-btn">[DOSSIER AKTUALISIEREN]</button>
+                                        <button id="btn-copy-report" class="terminal-btn">[IN ZWISCHENABLAGE KOPIEREN]</button>
+                                        <button id="btn-download-save" class="terminal-btn">[SPIELSTAND ALS JSON SPEICHERN]</button>
+                                        <label class="terminal-btn file-label">
+                                            [JSON LADEN]
+                                            <input type="file" id="input-load-save" accept=".json" style="display:none;">
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="terminal-box">
+                                    <h3>&gt; OFFENE QUEST-HOOKS FÜR DIE RPG-RUNDE (NACH TAG 24)</h3>
+                                    <div class="hooks-list">
+                                        <div class="hook-item">
+                                            <h4>1. DER FEHLENDE G.E.E.K.-REGULATOR (KARAWANEN-EXPEDITION)</h4>
+                                            <p>Der Fusionsreaktor von Vault 84 läuft stabil auf 65% Kapazität. Um 100% für den langfristigen Ausbau (Hydroponik-Erweiterung &amp; Fertigungsanlage) zu erreichen, muss die Spielergruppe an die Oberfläche zur alten <strong>Poseidon-Umspannstation Echo-7</strong> reisen.</p>
+                                        </div>
+                                        <div class="hook-item">
+                                            <h4>2. DAS GEHEIMNIS VON SUB-LEVEL 4 ("PROJEKT PERMAFROST")</h4>
+                                            <p>Aufseherin Vance hat vor dem Systemausfall ein verschlüsseltes Labor hinter der Reaktorkammer abgeriegelt. Die Tür erfordert drei externe Sicherheitscodes von benachbarten Vorkriegs-Relaisstationen.</p>
+                                        </div>
+                                        <div class="hook-item">
+                                            <h4>3. DAS FUNKSIGNAL AUS DEM SCHNEETAL</h4>
+                                            <p>Seit Tag 21 empfängt die reparierte Phalanx-Antenne von Vault 84 nicht nur das Signal der verschollenen Außenspäher, sondern auch Funksprüche einer unbekannten Fraktion ("Die Eisernen Chronisten"), die auf den Reaktor-Hitzesignatur-Impuls aufmerksam geworden sind.</p>
+                                        </div>
+                                        <div class="hook-item">
+                                            <h4>4. AUFBAU DER VAULT-GEMEINSCHAFT (SIEDLUNGS-SYSTEM)</h4>
+                                            <p>Die 118 geretteten Bewohner erwachen aus dem Kryoschlaf. Die neue Spielergruppe übernimmt die Rolle des Krisen- und Aufbauteams: Rohstoffe beschaffen, Handelsrouten sichern und entscheiden, ob Vault 84 geöffnet oder verborgen bleibt.</p>
+                                        </div>
+                                    </div>
+                                    <hr class="terminal-divider">
+                                    <div class="reset-zone">
+                                        <button id="btn-reset-all" class="terminal-btn btn-danger">[! TERMINAL &amp; FORTSCHRITT KOMPLETT ZURÜCKSETZEN !]</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                    </main>
+
+                    <!-- Bottom Hardware Controls & Audio / Theme Bar -->
+                    <footer class="terminal-footer">
+                        <div class="footer-left">
+                            <span>STATUS: <strong id="footer-status-msg">SYSTEM BEREIT. WÄHLEN SIE EINEN TAG IM DEZEMBER-PROTOKOLL.</strong></span>
+                        </div>
+                        <div class="footer-right">
+                            <button id="btn-theme-toggle" class="footer-btn" title="Farbschema wechseln (Grün / Amber / Vault-Tec Blau)">[FARBE: GRÜN]</button>
+                            <button id="btn-sound-toggle" class="footer-btn" title="Synthesizer-Terminal-Töne ein/ausschalten">[AUDIO: AN]</button>
+                            <button id="btn-crt-toggle" class="footer-btn" title="CRT-Flimmern &amp; Wölbung umschalten">[CRT-FX: AN]</button>
+                        </div>
+                    </footer>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/character.js"></script>
+    <script src="js/story-part1.js"></script>
+    <script src="js/story-part2.js"></script>
+    <script src="js/story-part3.js"></script>
+    <script src="js/story-data.js"></script>
+    <script src="js/dice-engine.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

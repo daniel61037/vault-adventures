@@ -1,0 +1,1763 @@
+﻿/* ==========================================================================
+   ROBCO INDUSTRIES UNIFIED OPERATING SYSTEM - TERMINAL CSS
+   Authentic Fallout 3 / Fallout 4 Green Terminal Aesthetics & High Legibility
+   ========================================================================== */
+
+:root {
+    /* Default Theme: Authentic Fallout 3 / 4 RobCo Terminal Green */
+    --phosphor-main: #2eff7b;
+    --phosphor-bright: #98ffc1;
+    --phosphor-text: #d6ffe6; /* High-legibility pale phosphor green for body text */
+    --phosphor-dim: #22a855;
+    --phosphor-dark: #072211;
+    --bg-screen: #041108;
+    --bg-panel: rgba(6, 26, 13, 0.88);
+    --glow-strong: 0 0 8px rgba(46, 255, 123, 0.45);
+    --glow-soft: 0 0 2px rgba(46, 255, 123, 0.22);
+    --alert-danger: #ff6b6b;
+    --alert-success: #52ff8a;
+    --font-mono: 'Share Tech Mono', 'Consolas', 'Courier New', monospace;
+    --font-vt: 'VT323', monospace;
+}
+
+body.theme-amber {
+    /* Fallout New Vegas Amber */
+    --phosphor-main: #ffb642;
+    --phosphor-bright: #ffd984;
+    --phosphor-text: #ffecd1;
+    --phosphor-dim: #b87c20;
+    --phosphor-dark: #261904;
+    --bg-screen: #0f0a02;
+    --bg-panel: rgba(28, 18, 3, 0.88);
+    --glow-strong: 0 0 8px rgba(255, 182, 66, 0.45);
+    --glow-soft: 0 0 2px rgba(255, 182, 66, 0.22);
+}
+
+body.theme-blue {
+    /* Vault-Tec High-Contrast Cyan/Blue */
+    --phosphor-main: #3ce6ff;
+    --phosphor-bright: #b5f6ff;
+    --phosphor-text: #e0fbff;
+    --phosphor-dim: #259bb0;
+    --phosphor-dark: #062129;
+    --bg-screen: #020c10;
+    --bg-panel: rgba(6, 24, 31, 0.88);
+    --glow-strong: 0 0 8px rgba(60, 230, 255, 0.45);
+    --glow-soft: 0 0 2px rgba(60, 230, 255, 0.22);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background-color: #0e100e;
+    color: var(--phosphor-main);
+    font-family: var(--font-mono);
+    font-size: 17px;
+    line-height: 1.55;
+    overflow: hidden;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Outer RobCo Hardware Bezel (Fallout 3/4 Dark Steel / Bakelite Frame) */
+.monitor-bezel {
+    width: 100vw;
+    height: 100vh;
+    padding: 12px;
+    background: linear-gradient(145deg, #2b2f2c 0%, #161816 55%, #0d0f0e 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.monitor-frame {
+    width: 100%;
+    height: 100%;
+    max-width: 1620px;
+    background: #141715;
+    border-radius: 22px;
+    padding: 14px;
+    box-shadow: 
+        inset 0 0 30px #000000,
+        0 12px 40px rgba(0, 0, 0, 0.95),
+        0 0 0 3px #363d38;
+    position: relative;
+}
+
+/* CRT Glass Screen */
+.crt-screen {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-screen);
+    background-image: radial-gradient(
+        ellipse at center,
+        rgba(22, 75, 38, 0.22) 0%,
+        rgba(4, 17, 8, 0.95) 85%
+    );
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--phosphor-dim);
+    box-shadow: inset 0 0 45px rgba(0, 0, 0, 0.85);
+}
+
+body.theme-amber .crt-screen {
+    background-image: radial-gradient(
+        ellipse at center,
+        rgba(75, 48, 12, 0.22) 0%,
+        rgba(15, 10, 2, 0.95) 85%
+    );
+}
+
+body.theme-blue .crt-screen {
+    background-image: radial-gradient(
+        ellipse at center,
+        rgba(12, 58, 75, 0.22) 0%,
+        rgba(2, 12, 16, 0.95) 85%
+    );
+}
+
+/* Subtle, Non-Intrusive Scanlines & CRT Overlays for High Readability */
+.crt-scanlines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.16) 50%
+    );
+    background-size: 100% 4px;
+}
+
+.crt-vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 51;
+    background: radial-gradient(
+        circle at center,
+        transparent 72%,
+        rgba(0, 0, 0, 0.55) 100%
+    );
+}
+
+.crt-flicker {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 52;
+    background: rgba(255, 255, 255, 0.004);
+}
+
+body.crt-off .crt-scanlines,
+body.crt-off .crt-flicker,
+body.crt-off .crt-vignette {
+    display: none;
+}
+
+/* Main Layout Wrapper */
+.terminal-wrapper {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 18px 26px;
+    text-shadow: var(--glow-soft);
+}
+
+/* Header - Classic RobCo Bios Top Block */
+.terminal-header {
+    border-bottom: 2px solid var(--phosphor-main);
+    padding-bottom: 10px;
+    margin-bottom: 14px;
+    flex-shrink: 0;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-weight: bold;
+    font-size: 1.25rem;
+    letter-spacing: 1px;
+    color: var(--phosphor-bright);
+    text-shadow: var(--glow-strong);
+    margin-bottom: 2px;
+}
+
+.header-sub {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.92rem;
+    color: var(--phosphor-main);
+    margin-bottom: 12px;
+}
+
+/* Navigation Bar - Fallout Bracket Selection Style */
+.terminal-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.nav-btn {
+    background: rgba(0, 0, 0, 0.35);
+    color: var(--phosphor-main);
+    border: 1px solid var(--phosphor-dim);
+    padding: 7px 14px;
+    font-family: var(--font-mono);
+    font-size: 0.96rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+.nav-btn:hover {
+    border-color: var(--phosphor-bright);
+    background: var(--phosphor-dark);
+    color: var(--phosphor-bright);
+}
+
+/* Classic Fallout Terminal Inverted Selection Bar */
+.nav-btn.active {
+    background: var(--phosphor-main);
+    color: #020d05;
+    border-color: var(--phosphor-main);
+    font-weight: bold;
+    text-shadow: none;
+    box-shadow: var(--glow-strong);
+}
+
+/* Telemetry Bar */
+.telemetry-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    background: var(--phosphor-dark);
+    border: 1px solid var(--phosphor-dim);
+    padding: 7px 14px;
+    font-size: 0.95rem;
+}
+
+.tele-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.tele-label {
+    color: var(--phosphor-main);
+    opacity: 0.85;
+}
+
+.tele-val {
+    color: var(--phosphor-bright);
+    font-weight: bold;
+}
+
+/* Main Scrollable Content Area */
+.terminal-main {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+    user-select: text;
+}
+
+/* Custom Terminal Scrollbar */
+.terminal-main::-webkit-scrollbar {
+    width: 12px;
+}
+.terminal-main::-webkit-scrollbar-track {
+    background: var(--phosphor-dark);
+    border: 1px solid var(--phosphor-dim);
+}
+.terminal-main::-webkit-scrollbar-thumb {
+    background: var(--phosphor-main);
+    border: 2px solid var(--phosphor-dark);
+}
+
+/* Tab Panels */
+.tab-panel {
+    display: none;
+    animation: fadeIn 0.15s ease-out;
+}
+.tab-panel.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.section-banner {
+    background: var(--bg-panel);
+    border: 1px solid var(--phosphor-main);
+    border-left: 5px solid var(--phosphor-main);
+    padding: 14px 18px;
+    margin-bottom: 16px;
+}
+
+.section-banner h2 {
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    letter-spacing: 0.8px;
+    color: var(--phosphor-bright);
+    margin-bottom: 6px;
+}
+
+.section-banner p {
+    font-size: 1.02rem;
+    color: var(--phosphor-text);
+    line-height: 1.55;
+}
+
+/* ==========================================================================
+   TAB 1: ADVENT CALENDAR 24 DOORS GRID
+   ========================================================================== */
+
+.calendar-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 14px;
+    padding: 8px 14px;
+    border: 1px solid var(--phosphor-dim);
+    background: var(--phosphor-dark);
+    font-weight: bold;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+    padding-bottom: 20px;
+}
+
+/* Responsive columns: Fewer doors per row on smaller screens */
+@media (min-width: 1400px) {
+    .calendar-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+    }
+}
+
+@media (max-width: 1399px) and (min-width: 1040px) {
+    .calendar-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+}
+
+@media (max-width: 1039px) and (min-width: 680px) {
+    .calendar-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+}
+
+@media (max-width: 679px) {
+    .calendar-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
+
+.door-card {
+    border: 1px solid var(--phosphor-dim);
+    background: var(--bg-panel);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 155px;
+    cursor: pointer;
+    transition: all 0.12s ease;
+    position: relative;
+}
+
+/* Authentic Fallout Terminal Hover Effect */
+.door-card:hover {
+    border-color: var(--phosphor-bright);
+    background: var(--phosphor-dark);
+    box-shadow: var(--glow-strong);
+    transform: translateY(-2px);
+}
+
+.door-card.special-gift-door {
+    border-color: var(--phosphor-bright);
+    box-shadow: var(--glow-soft);
+}
+
+.door-card.completed {
+    border-color: var(--phosphor-main);
+    border-left: 4px solid var(--phosphor-main);
+    background: rgba(46, 255, 123, 0.09);
+}
+
+body.theme-amber .door-card.completed {
+    background: rgba(255, 182, 66, 0.09);
+}
+
+body.theme-blue .door-card.completed {
+    background: rgba(60, 230, 255, 0.09);
+}
+
+.door-card.locked {
+    opacity: 0.6;
+    border-style: dashed;
+}
+
+.door-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    border-bottom: 1px dashed var(--phosphor-dim);
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+}
+
+.door-day {
+    font-family: var(--font-mono);
+    font-weight: bold;
+    font-size: 1.12rem;
+    color: var(--phosphor-bright);
+    white-space: nowrap;
+}
+
+.door-status-badge {
+    font-size: 0.76rem;
+    padding: 2px 7px;
+    border: 1px solid var(--phosphor-dim);
+    color: var(--phosphor-main);
+    white-space: nowrap;
+    line-height: 1.3;
+}
+
+.door-card.completed .door-status-badge {
+    font-size: 0.76rem;
+    padding: 2px 7px;
+    border: 1px solid var(--phosphor-dim);
+    color: var(--phosphor-main);
+    white-space: nowrap;
+    line-height: 1.3;
+}
+
+.door-title {
+    font-weight: bold;
+    font-size: 1.04rem;
+    margin-bottom: 6px;
+    color: var(--phosphor-text);
+}
+
+.door-sector {
+    font-size: 0.88rem;
+    color: var(--phosphor-main);
+    opacity: 0.9;
+    margin-bottom: 8px;
+}
+
+.door-gift-indicator {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 2px 8px;
+    margin-bottom: 8px;
+    background: var(--phosphor-dark);
+    border: 1px solid var(--phosphor-bright);
+    color: var(--phosphor-bright);
+}
+
+.door-footer {
+    font-size: 0.84rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    color: var(--phosphor-bright);
+    border-top: 1px dotted var(--phosphor-dim);
+    padding-top: 8px;
+}
+
+/* ==========================================================================
+   TAB 2: MISSION / SOLO ADVENTURE VIEW (HIGH LEGIBILITY)
+   ========================================================================== */
+
+.mission-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 24px;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.mission-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    border: 1px solid var(--phosphor-main);
+    border-left: 5px solid var(--phosphor-main);
+    background: var(--phosphor-dark);
+    padding: 12px 18px;
+}
+
+.mission-header-title h2 {
+    font-family: var(--font-mono);
+    font-size: 1.4rem;
+    color: var(--phosphor-bright);
+    margin-bottom: 2px;
+}
+
+.mission-meta {
+    font-size: 0.92rem;
+    color: var(--phosphor-main);
+}
+
+.mission-nav-btns {
+    display: flex;
+    gap: 8px;
+}
+
+.mission-story-box {
+    border: 1px solid var(--phosphor-main);
+    background: var(--bg-panel);
+    padding: 20px 26px;
+}
+
+.log-entry-header {
+    font-family: var(--font-mono);
+    font-weight: bold;
+    font-size: 1.05rem;
+    color: var(--phosphor-main);
+    border-bottom: 1px dashed var(--phosphor-dim);
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+}
+
+.story-paragraphs p {
+    margin-bottom: 14px;
+    font-size: 1.1rem;
+    line-height: 1.68;
+    color: var(--phosphor-text);
+    letter-spacing: 0.2px;
+}
+
+.ambient-quote {
+    border-left: 4px solid var(--phosphor-main);
+    margin: 16px 0 4px 0;
+    font-style: italic;
+    font-size: 1.04rem;
+    line-height: 1.55;
+    color: var(--phosphor-bright);
+    background: rgba(0, 0, 0, 0.4);
+    padding: 12px 16px;
+}
+
+.choices-heading {
+    font-family: var(--font-mono);
+    font-weight: bold;
+    font-size: 1.18rem;
+    color: var(--phosphor-bright);
+    margin: 6px 0 4px 0;
+}
+
+.choices-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 16px;
+}
+
+.choice-card {
+    border: 1px solid var(--phosphor-main);
+    background: var(--bg-panel);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.choice-card.selected-approach {
+    border: 2px solid var(--phosphor-bright);
+    box-shadow: var(--glow-strong);
+}
+
+.choice-title {
+    font-size: 1.12rem;
+    font-weight: bold;
+    color: var(--phosphor-bright);
+}
+
+.choice-test-badge {
+    display: inline-block;
+    background: var(--phosphor-dark);
+    border: 1px solid var(--phosphor-main);
+    padding: 6px 10px;
+    font-size: 0.94rem;
+    font-weight: bold;
+    color: var(--phosphor-bright);
+}
+
+.choice-desc {
+    font-size: 1.02rem;
+    line-height: 1.55;
+    color: var(--phosphor-text);
+}
+
+/* Inline Mission Resolution Box */
+.resolution-box {
+    border: 2px solid var(--phosphor-main);
+    background: var(--bg-panel);
+    padding: 20px 24px;
+    box-shadow: var(--glow-strong);
+}
+
+.resolution-box h3 {
+    font-family: var(--font-mono);
+    font-size: 1.3rem;
+    color: var(--phosphor-bright);
+    margin-bottom: 12px;
+}
+
+.resolution-box p {
+    color: var(--phosphor-text);
+    font-size: 1.02rem;
+    margin-bottom: 6px;
+}
+
+/* Special Gift Box for Day 6 (Nikolaus) & Day 24 (Heiligabend) */
+.special-gift-box {
+    margin-top: 18px;
+    border: 2px double var(--phosphor-bright);
+    background: var(--phosphor-dark);
+    padding: 18px 22px;
+    box-shadow: var(--glow-strong);
+}
+
+.special-gift-badge {
+    display: inline-block;
+    background: var(--phosphor-main);
+    color: #020d05;
+    font-weight: bold;
+    font-size: 0.92rem;
+    padding: 4px 12px;
+    margin-bottom: 10px;
+    text-shadow: none;
+    letter-spacing: 0.5px;
+}
+
+.special-gift-title {
+    font-size: 1.22rem;
+    color: var(--phosphor-bright);
+    margin-bottom: 8px;
+}
+
+.special-gift-text {
+    font-size: 1.04rem;
+    line-height: 1.6;
+    color: var(--phosphor-text);
+    margin-bottom: 12px;
+}
+
+.special-gift-loot-title {
+    font-weight: bold;
+    color: var(--phosphor-bright);
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.special-gift-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.special-gift-list li {
+    padding: 7px 12px;
+    background: rgba(0, 0, 0, 0.45);
+    border-left: 4px solid var(--phosphor-bright);
+    color: var(--phosphor-text);
+    font-weight: bold;
+    font-size: 0.98rem;
+}
+
+.special-gift-hint {
+    margin-top: 10px;
+    padding: 10px 14px;
+    border: 1px dashed var(--phosphor-bright);
+    background: rgba(46, 255, 123, 0.08);
+    color: var(--phosphor-bright);
+    font-size: 0.98rem;
+}
+
+.dice-tray {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 14px 0;
+}
+
+.d20-die {
+    width: 74px;
+    height: 74px;
+    border: 2px solid var(--phosphor-main);
+    background: var(--phosphor-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+}
+
+.d20-die .die-num {
+    font-size: 1.75rem;
+    font-weight: bold;
+    line-height: 1.1;
+    color: var(--phosphor-bright);
+}
+
+.d20-die .die-tag {
+    font-size: 0.76rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.d20-die.crit {
+    border-color: var(--phosphor-bright);
+    background: var(--phosphor-main);
+    color: #020d05;
+    box-shadow: var(--glow-strong);
+    text-shadow: none;
+}
+.d20-die.crit .die-num,
+.d20-die.crit .die-tag {
+    color: #020d05;
+    font-weight: bold;
+}
+
+.d20-die.success {
+    border-color: var(--phosphor-bright);
+}
+
+.d20-die.complication {
+    border-color: var(--alert-danger);
+    color: var(--alert-danger);
+}
+.d20-die.complication .die-num {
+    color: var(--alert-danger);
+}
+
+/* ==========================================================================
+   TAB 3: CHARACTER SHEET (2D20)
+   ========================================================================== */
+
+.char-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 18px;
+    padding-bottom: 24px;
+}
+
+@media (max-width: 1024px) {
+    .char-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.char-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.terminal-box {
+    border: 1px solid var(--phosphor-main);
+    background: var(--bg-panel);
+    padding: 16px 20px;
+}
+
+.terminal-box h3 {
+    font-family: var(--font-mono);
+    font-size: 1.15rem;
+    color: var(--phosphor-bright);
+    border-bottom: 1px dashed var(--phosphor-dim);
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+}
+
+.bio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 14px;
+    font-size: 0.98rem;
+    color: var(--phosphor-text);
+    margin-bottom: 12px;
+}
+
+.char-backstory {
+    font-size: 0.98rem;
+    line-height: 1.55;
+    color: var(--phosphor-text);
+    border-top: 1px dotted var(--phosphor-dim);
+    padding-top: 10px;
+}
+
+.special-list {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    text-align: center;
+}
+
+@media (max-width: 680px) {
+    .special-list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.special-card {
+    border: 1px solid var(--phosphor-main);
+    background: var(--phosphor-dark);
+    padding: 10px 4px;
+}
+
+.special-letter {
+    font-family: var(--font-mono);
+    font-weight: bold;
+    font-size: 1.35rem;
+    color: var(--phosphor-bright);
+}
+
+.special-name {
+    font-size: 0.78rem;
+    color: var(--phosphor-text);
+    display: block;
+    margin: 2px 0;
+}
+
+.special-val {
+    font-family: var(--font-mono);
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: var(--phosphor-main);
+}
+
+.perk-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.perk-list li {
+    border-left: 3px solid var(--phosphor-main);
+    padding-left: 12px;
+    font-size: 0.96rem;
+    color: var(--phosphor-text);
+    line-height: 1.5;
+}
+
+.perk-title {
+    color: var(--phosphor-bright);
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.resource-controls {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.res-box {
+    border: 1px solid var(--phosphor-dim);
+    background: var(--phosphor-dark);
+    padding: 9px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.res-title {
+    font-size: 0.88rem;
+    font-weight: bold;
+    color: var(--phosphor-text);
+}
+
+.res-stepper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    color: var(--phosphor-bright);
+}
+
+.btn-step {
+    background: transparent;
+    border: 1px solid var(--phosphor-main);
+    color: var(--phosphor-main);
+    font-family: var(--font-mono);
+    font-weight: bold;
+    padding: 2px 8px;
+    cursor: pointer;
+}
+.btn-step:hover {
+    background: var(--phosphor-main);
+    color: #020d05;
+    text-shadow: none;
+}
+
+.combat-stats-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 0.92rem;
+    color: var(--phosphor-text);
+    border-top: 1px dotted var(--phosphor-dim);
+    padding-top: 10px;
+}
+
+.skills-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px 18px;
+    font-size: 0.96rem;
+}
+
+@media (max-width: 680px) {
+    .skills-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+.skill-row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dotted var(--phosphor-dim);
+    padding: 4px 6px;
+    color: var(--phosphor-text);
+    cursor: pointer;
+}
+.skill-row:hover {
+    background: var(--phosphor-main);
+    color: #020d05;
+    text-shadow: none;
+    font-weight: bold;
+}
+.skill-row.tag-skill {
+    color: var(--phosphor-bright);
+    font-weight: bold;
+}
+.skill-row.tag-skill:hover {
+    color: #020d05;
+}
+
+.inventory-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+    max-height: 230px;
+    overflow-y: auto;
+}
+
+.inv-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    background: var(--phosphor-dark);
+    border: 1px solid var(--phosphor-dim);
+    font-size: 0.94rem;
+    color: var(--phosphor-text);
+}
+
+.add-item-row {
+    display: flex;
+    gap: 8px;
+}
+
+.add-item-row input {
+    flex: 1;
+    background: var(--bg-screen);
+    border: 1px solid var(--phosphor-main);
+    color: var(--phosphor-text);
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    padding: 8px 12px;
+}
+
+/* ==========================================================================
+   TAB 4: VAULT DIAGNOSTICS
+   ========================================================================== */
+
+.vault-systems-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.sys-card {
+    border: 1px solid var(--phosphor-main);
+    background: var(--bg-panel);
+    padding: 14px 16px;
+}
+
+.sys-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-size: 1.02rem;
+    color: var(--phosphor-bright);
+}
+
+.sys-bar-bg {
+    width: 100%;
+    height: 18px;
+    background: var(--phosphor-dark);
+    border: 1px solid var(--phosphor-main);
+    margin: 8px 0;
+    position: relative;
+}
+
+.sys-bar-fill {
+    height: 100%;
+    background: var(--phosphor-main);
+    box-shadow: var(--glow-soft);
+    transition: width 0.3s ease;
+}
+
+.ascii-blueprint {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    line-height: 1.35;
+    overflow-x: auto;
+    color: var(--phosphor-text);
+    background: var(--phosphor-dark);
+    padding: 14px;
+    border: 1px dashed var(--phosphor-main);
+}
+
+/* ==========================================================================
+   TAB 5: 2D20 DICE ROLLER
+   ========================================================================== */
+
+.dice-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+@media (max-width: 960px) {
+    .dice-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.small-hint {
+    font-size: 0.95rem;
+    color: var(--phosphor-text);
+    margin-bottom: 14px;
+}
+
+.dice-selectors {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-size: 0.92rem;
+    font-weight: bold;
+    color: var(--phosphor-bright);
+}
+
+.terminal-select,
+.terminal-select-inline {
+    background: var(--phosphor-dark);
+    color: var(--phosphor-text);
+    border: 1px solid var(--phosphor-main);
+    font-family: var(--font-mono);
+    font-size: 0.98rem;
+    padding: 8px 12px;
+}
+
+.bonus-dice-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.bonus-d20-btn {
+    background: var(--phosphor-dark);
+    color: var(--phosphor-main);
+    border: 1px solid var(--phosphor-dim);
+    padding: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.bonus-d20-btn.active {
+    background: var(--phosphor-main);
+    color: #020d05;
+    font-weight: bold;
+    text-shadow: none;
+}
+
+.target-summary {
+    background: var(--phosphor-dark);
+    border: 1px solid var(--phosphor-bright);
+    padding: 10px 14px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.02rem;
+    color: var(--phosphor-bright);
+    margin-bottom: 14px;
+}
+
+.terminal-btn {
+    background: var(--phosphor-dark);
+    color: var(--phosphor-bright);
+    border: 1px solid var(--phosphor-main);
+    font-family: var(--font-mono);
+    font-size: 0.96rem;
+    font-weight: bold;
+    padding: 9px 16px;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    display: inline-block;
+    text-align: center;
+}
+
+/* Authentic Fallout Inverted Block Selection on Hover */
+.terminal-btn:hover:not(:disabled) {
+    background: var(--phosphor-main);
+    color: #020d05;
+    box-shadow: var(--glow-strong);
+    text-shadow: none;
+}
+
+.terminal-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.btn-large {
+    width: 100%;
+    font-family: var(--font-mono);
+    font-size: 1.15rem;
+    letter-spacing: 1px;
+    padding: 12px;
+}
+
+.btn-danger {
+    border-color: var(--alert-danger);
+    color: var(--alert-danger);
+}
+.btn-danger:hover {
+    background: var(--alert-danger);
+    color: #000;
+}
+
+.terminal-divider {
+    border: none;
+    border-top: 1px dashed var(--phosphor-dim);
+    margin: 16px 0;
+}
+
+.cd-controls {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.dice-result-display {
+    min-height: 160px;
+    border: 1px solid var(--phosphor-dim);
+    background: var(--phosphor-dark);
+    padding: 14px;
+    margin-bottom: 14px;
+    color: var(--phosphor-text);
+}
+
+.dice-history-log {
+    max-height: 230px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.92rem;
+    color: var(--phosphor-text);
+}
+
+.history-item {
+    border-bottom: 1px dotted var(--phosphor-dim);
+    padding-bottom: 5px;
+}
+
+/* ==========================================================================
+   TAB 6: EXPORT & CAMPAIGN HANDOFF
+   ========================================================================== */
+
+.export-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 18px;
+    padding-bottom: 24px;
+}
+
+@media (max-width: 980px) {
+    .export-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.terminal-textarea {
+    width: 100%;
+    background: var(--phosphor-dark);
+    color: var(--phosphor-text);
+    border: 1px solid var(--phosphor-main);
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+    line-height: 1.45;
+    padding: 12px;
+    resize: vertical;
+    margin-bottom: 12px;
+}
+
+.export-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.hooks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.hook-item h4 {
+    color: var(--phosphor-bright);
+    font-size: 1.02rem;
+    margin-bottom: 4px;
+}
+
+.hook-item p {
+    font-size: 0.96rem;
+    color: var(--phosphor-text);
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+
+.terminal-footer {
+    border-top: 2px solid var(--phosphor-main);
+    padding-top: 10px;
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 0.92rem;
+    color: var(--phosphor-text);
+    flex-shrink: 0;
+}
+
+.footer-right {
+    display: flex;
+    gap: 8px;
+}
+
+.footer-btn {
+    background: var(--phosphor-dark);
+    color: var(--phosphor-main);
+    border: 1px solid var(--phosphor-main);
+    padding: 5px 10px;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+.footer-btn:hover {
+    background: var(--phosphor-main);
+    color: #020d05;
+    text-shadow: none;
+}
+
+/* ==========================================================================
+   RESPONSIVE OPTIMIZATIONS FOR MOBILE & SMALL SCREENS
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    html, body {
+        font-size: 15px;
+    }
+
+    .monitor-bezel {
+        padding: 4px;
+    }
+
+    .monitor-frame {
+        padding: 6px;
+        border-radius: 12px;
+        box-shadow: none;
+    }
+
+    .terminal-wrapper {
+        padding: 10px 12px;
+    }
+
+    .header-top {
+        font-size: 1.05rem;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .header-sub {
+        font-size: 0.82rem;
+        flex-direction: column;
+        gap: 2px;
+        margin-bottom: 8px;
+    }
+
+    .terminal-nav {
+        gap: 5px;
+        margin-bottom: 8px;
+    }
+
+    .nav-btn {
+        padding: 5px 9px;
+        font-size: 0.84rem;
+    }
+
+    .telemetry-bar {
+        gap: 6px 14px;
+        padding: 6px 10px;
+        font-size: 0.86rem;
+    }
+
+    .choices-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .choice-card {
+        padding: 14px;
+    }
+
+    .mission-header-bar {
+        padding: 10px 12px;
+    }
+
+    .mission-header-title h2 {
+        font-size: 1.18rem;
+    }
+
+    .mission-story-box {
+        padding: 14px 16px;
+    }
+
+    .story-paragraphs p {
+        font-size: 1rem;
+        line-height: 1.58;
+    }
+
+    .door-card {
+        padding: 12px 14px;
+        min-height: auto;
+    }
+
+    .door-title {
+        font-size: 0.98rem;
+    }
+
+    .terminal-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .footer-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+/* ==========================================================================
+   MULTI-PHASE MISSIONS, DYNAMIC INTER-PHASE CONSEQUENCES & LEGACY NOTICE
+   ========================================================================== */
+
+.door-card.in-progress {
+    border-color: var(--phosphor-bright);
+    border-left: 4px dashed var(--phosphor-bright);
+    background: rgba(46, 255, 123, 0.05);
+}
+
+body.theme-amber .door-card.in-progress {
+    background: rgba(255, 182, 66, 0.05);
+}
+
+body.theme-blue .door-card.in-progress {
+    background: rgba(60, 230, 255, 0.05);
+}
+
+.door-phases-meta {
+    font-size: 0.78rem;
+    color: var(--phosphor-dim);
+    margin-bottom: 6px;
+}
+
+.phases-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.phase-box {
+    border: 1px solid var(--phosphor-dim);
+    background: var(--bg-panel);
+    padding: 18px 22px;
+}
+
+.phase-box.phase-active {
+    border: 2px solid var(--phosphor-main);
+    box-shadow: var(--glow-soft);
+}
+
+.phase-box.phase-done {
+    border-color: var(--phosphor-main);
+    border-left: 4px solid var(--phosphor-main);
+}
+
+.phase-box.phase-locked {
+    opacity: 0.55;
+    border-style: dashed;
+    padding: 12px 18px;
+}
+
+.phase-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-bottom: 1px dashed var(--phosphor-dim);
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+}
+
+.phase-box.phase-locked .phase-header {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.phase-title {
+    font-family: var(--font-mono);
+    font-weight: bold;
+    font-size: 1.12rem;
+    color: var(--phosphor-bright);
+}
+
+.phase-badge {
+    font-size: 0.82rem;
+    font-weight: bold;
+    padding: 3px 10px;
+    border: 1px solid var(--phosphor-main);
+    color: var(--phosphor-bright);
+    background: var(--phosphor-dark);
+    white-space: nowrap;
+}
+
+.phase-badge.active {
+    background: var(--phosphor-main);
+    color: #020d05;
+    text-shadow: none;
+}
+
+.phase-badge.success {
+    border-color: var(--alert-success);
+    color: var(--alert-success);
+}
+
+.phase-badge.fail {
+    border-color: var(--alert-danger);
+    color: var(--alert-danger);
+}
+
+.phase-badge.locked {
+    border-color: var(--phosphor-dim);
+    color: var(--phosphor-dim);
+}
+
+.phase-intro {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--phosphor-text);
+    margin-bottom: 14px;
+}
+
+.consequence-banner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    font-size: 0.96rem;
+    line-height: 1.45;
+    border: 1px solid var(--phosphor-main);
+    background: rgba(0, 0, 0, 0.42);
+    color: var(--phosphor-text);
+}
+
+.consequence-banner.advantage {
+    border-color: var(--alert-success);
+    border-left: 4px solid var(--alert-success);
+    background: rgba(46, 255, 123, 0.08);
+}
+
+.consequence-banner.penalty {
+    border-color: var(--alert-danger);
+    border-left: 4px solid var(--alert-danger);
+    background: rgba(255, 107, 107, 0.08);
+}
+
+.consequence-tag {
+    font-weight: bold;
+    color: var(--phosphor-bright);
+}
+
+.consequence-banner.advantage .consequence-tag {
+    color: var(--alert-success);
+}
+
+.consequence-banner.penalty .consequence-tag {
+    color: var(--alert-danger);
+}
+
+.phase-resolution {
+    border-width: 1px;
+    padding: 16px 18px;
+    box-shadow: none;
+    margin-top: 6px;
+}
+
+.mission-finish-bar {
+    margin-top: 14px;
+    border: 2px solid var(--phosphor-main);
+    background: var(--phosphor-dark);
+    padding: 16px 20px;
+    box-shadow: var(--glow-soft);
+}
+
+.mission-finish-title {
+    font-weight: bold;
+    font-size: 1.06rem;
+    color: var(--phosphor-bright);
+}
+
+.legacy-notice-box {
+    border: 1px dashed var(--phosphor-bright);
+    background: var(--phosphor-dark);
+    padding: 14px 18px;
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--phosphor-text);
+}
+
+@media (max-width: 768px) {
+    .phase-box {
+        padding: 12px 14px;
+    }
+
+    .phase-title {
+        font-size: 1rem;
+    }
+
+    .consequence-banner {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
+
+    .phase-resolution {
+        padding: 12px 14px;
+    }
+}
+
+/* ==========================================================================
+   CHARACTER NAME & GENDER CUSTOMIZATION BAR (TAB 1 & TAB 3)
+   ========================================================================== */
+
+.char-profile-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 16px;
+    margin-bottom: 14px;
+    padding: 10px 14px;
+    border: 1px solid var(--phosphor-dim);
+    background: var(--bg-panel);
+}
+
+.char-profile-field {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.char-profile-name-field {
+    flex: 1 1 280px;
+}
+
+.char-profile-field label,
+.char-profile-label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--phosphor-bright);
+    white-space: nowrap;
+}
+
+.terminal-input {
+    background: var(--bg-screen);
+    border: 1px solid var(--phosphor-main);
+    color: var(--phosphor-text);
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    padding: 6px 10px;
+    min-width: 190px;
+    flex: 1 1 200px;
+}
+
+.terminal-input:focus {
+    outline: none;
+    border-color: var(--phosphor-bright);
+    box-shadow: var(--glow-soft);
+}
+
+.gender-btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.gender-btn {
+    background: var(--phosphor-dark);
+    color: var(--phosphor-main);
+    border: 1px solid var(--phosphor-dim);
+    padding: 6px 10px;
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    white-space: nowrap;
+}
+
+.gender-btn:hover {
+    border-color: var(--phosphor-bright);
+    color: var(--phosphor-bright);
+}
+
+.gender-btn.active {
+    background: var(--phosphor-main);
+    color: #020d05;
+    border-color: var(--phosphor-main);
+    text-shadow: none;
+    box-shadow: var(--glow-soft);
+}
+
+.char-profile-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.char-customize-panel {
+    margin: 12px 0;
+    padding: 12px 14px;
+    border: 1px dashed var(--phosphor-dim);
+    background: rgba(0, 0, 0, 0.32);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.char-customize-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.char-customize-row label,
+.char-customize-label {
+    font-size: 0.88rem;
+    font-weight: bold;
+    color: var(--phosphor-bright);
+}
+
+.char-name-edit-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+@media (max-width: 768px) {
+    .char-profile-bar {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+
+    .char-profile-field,
+    .char-profile-name-field,
+    .char-profile-actions {
+        width: 100%;
+    }
+
+    .terminal-input {
+        width: 100%;
+        min-width: 0;
+    }
+}
